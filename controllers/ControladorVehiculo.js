@@ -44,18 +44,19 @@ export class ControladorVehiculo{
         let servicioCelda= new ServicioCelda()
 
         try{
-            let id=request.params.id
-            let datos=request.body
-            let celda= await servicioCelda.buscarPorId(datos.id_celda)
-            let tarifa = celda.tarifa
-            let fecha= new Date()
-            let vehiculo = await servicioVehiculo.buscarPorId(id)
+            let id      =request.params.id
+            let datos   =request.body
+            let celda   = await servicioCelda.buscarPorId(datos.id_celda)
+            let tarifa  = celda.tarifa
+            let fecha   = new Date()
+            let vehiculo= await servicioVehiculo.buscarPorId(id)
             let fechaEntrada= vehiculo.fecha_ingreso      
             let diferencia= fecha.getTime()-fechaEntrada.getTime()
             let diferenciaEnSegundos= diferencia/1000
-            let diferenciaEnMinutos=diferenciaEnSegundos/60
+            let diferenciaEnMinutos=Math.round(diferenciaEnSegundos/60)
             let costo=diferenciaEnMinutos*tarifa
-
+            
+            datos.minutos=diferenciaEnMinutos
             datos.fecha_salida=fecha
             datos.total_pago=costo
 
