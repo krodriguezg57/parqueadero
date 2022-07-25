@@ -1,0 +1,10 @@
+.banner{
+    background-image: url("../../assets/img/banner.jpg");
+    padding: 5% 20% 25% 10%;
+    background-size: cover;
+    background-position: top center;
+}
+
+.dotted{
+    border: dotted 2px grey;
+}
